@@ -1,12 +1,32 @@
 package demo.gap.events.dto;
 
-public class CartEvent {
+import java.io.Serializable;
+
+public class CartEvent implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Customer customer;
 	private Item item;
+
+
+	private String eventId;
+	
 	
 	private String date;
 	private String event;
 
+	public String getEventId() {
+		return eventId;
+	}
+
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
+	
+	
 	public String getEvent() {
 		return event;
 	}
@@ -17,10 +37,7 @@ public class CartEvent {
 	}
 
 
-	public EventType getEventType(){
-		return EventType.CART;
-	}
-	
+
 
 	public Customer getCustomer() {
 		return customer;

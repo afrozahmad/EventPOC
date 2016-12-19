@@ -17,9 +17,7 @@ public class CartEvent {
 	}
 
 
-	public EventType getEventType(){
-		return EventType.CART;
-	}
+	
 	
 
 	public Customer getCustomer() {

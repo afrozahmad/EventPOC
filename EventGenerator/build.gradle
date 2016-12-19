@@ -9,17 +9,21 @@ jar {
                    'Implementation-Version': version
     }
 }
+configurations {
+    provided
+    compile.extendsFrom provided
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
-	compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.0.2'
-	compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: '2.0.2'
-	compile group: 'org.apache.spark', name: 'spark-streaming-kafka_2.11', version: '1.6.3'    
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.5'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.1.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.5'
+    
     
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
@@ -28,10 +32,15 @@ test {
     systemProperties 'property': 'value'
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
+jar {
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
     }
 }

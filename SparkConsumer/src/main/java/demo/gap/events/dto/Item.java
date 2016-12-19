@@ -1,6 +1,12 @@
 package demo.gap.events.dto;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sku;
 	private String itemName;
 	private int quantity;
